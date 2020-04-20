@@ -321,4 +321,4 @@ async def botquit(ctx):
     quit()
 
 # Run Bot    
-nameGenBot.run("NjU1MjQ5ODk2MzY1ODgzMzkz.XfRjGQ.YbkPMnGGWxUwnLADeF2wurGrl3I")
+nameGenBot.run("GET FROM MAKO")
