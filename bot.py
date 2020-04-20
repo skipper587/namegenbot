@@ -14,9 +14,9 @@ import os
 nameGen = discord.Client()
 
 # Initialize Bot
-nameGenBot = commands.Bot(command_prefix="!")
+nameGenBot = commands.Bot(command_prefix="+")
 
-versionNumber = "1.1.3"
+versionNumber = "1.1.5"
 modRoleNames = ["Olo'eyktan","Eyktan"]
 
 # Na'vi Alphabet
@@ -202,14 +202,14 @@ async def howto(ctx):
     langCheck = outputCheck(ctx.message.author)
     
     if langCheck.lower() == "english":
-        await ctx.send("Syntax for the command is `!generate <number of names> <number of syllables>`. Maximum number of names and syllables is capped at 20.")
+        await ctx.send("Syntax for the command is `+generate <number of names> <number of syllables>`. Maximum number of names and syllables is capped at 20.")
     elif langCheck.lower() == "na'vi":
-        await ctx.send("Fte sivar `!generate`ti, fìkem si: `!generate <stxoä holpxay> <aylì'kongä holpxay>`. Stxoä lì'kongäsì txantewä holpxay lu mevotsìng.")
+        await ctx.send("Fte sivar `+generate`ti, fìkem si: `+generate <stxoä holpxay> <aylì'kongä holpxay>`. Stxoä lì'kongäsì txantewä holpxay lu mevotsìng.")
     else:
         await ctx.send("Somehow, and god knows how, you fucked up.")
 
 # Generate # of random names
-@nameGenBot.command(name="generate")
+@nameGenBot.command(name="generate",aliases=['ngop'])
 async def generate(ctx, numOut, numSyllables):
     # Initializing Variables
     n = int(numOut)
@@ -238,25 +238,25 @@ async def generate(ctx, numOut, numSyllables):
             await ctx.send("Somehow, and god knows how, you fucked up.")
     else:
         if langCheck.lower() == "english":
-            await ctx.send("Please enter a value greater than zero. If you need help with the `!generate` command, type `!howto`")
+            await ctx.send("Please enter a value greater than zero. If you need help with the `+generate` command, type `+howto`")
         elif langCheck.lower() == "na'vi":
-            await ctx.send("Rutxe sar holpxayti a to kew lu apxa. Txo kivin srungti ngal, `!howto`ri pamrel si nga.")
+            await ctx.send("Rutxe sar holpxayti a to kew lu apxa. Txo kivin srungti ngal, `+howto`ri pamrel si nga.")
         
 
 # Error Handling for !generate
 @generate.error
 async def generate_error(ctx, error):
     if isinstance(error, commands.CommandError):
-        await ctx.send("Invalid syntax. If you need help with the `!generate` command, type `!howto`")
+        await ctx.send("Invalid syntax. If you need help with the `+generate` command, type `+howto`")
 
 # Version
-@nameGenBot.command(name='version')
+@nameGenBot.command(name='version',aliases=['srey'])
 async def version(ctx):
-    displayversion = ["Version: ", versionNumber]
+    displayversion = ["Srey: ", versionNumber]
     await ctx.send(''.join(displayversion))
 
 # User Preferences
-@nameGenBot.command(name='profile')
+@nameGenBot.command(name='language',aliases=['lì\'fya'])
 async def profile(ctx, *setting):
     user = ctx.message.author
     fileName = 'users/' + str(user.id) + '.tsk'
@@ -269,15 +269,19 @@ async def profile(ctx, *setting):
         fh.write('English')
         fh.close()
         
-        await ctx.send("Setting up a new user profile. To change your default output settings, use `!profile <english/na'vi>`.")
+        await ctx.send("Setting up a new user profile. To change your default output settings, use `+profile <english/na'vi>`.")
     elif preference == "":
         fh = open(fileName, 'r')
         profile = fh.readline().strip()
         fh.close()
-
-        embed=discord.Embed(color=0x3154cc, title=user.name, description="Language Preference: **" + profile + "**")
-        embed.set_thumbnail(url=user.avatar_url)
-        await ctx.send(embed=embed)
+        if profile == "Na'vi":
+            embed=discord.Embed(color=0x3154cc, title=user.name, description="Nulnawnewa Lì'fya: **" + profile + "**")
+            embed.set_thumbnail(url=user.avatar_url)
+            await ctx.send(embed=embed)
+        else:
+            embed=discord.Embed(color=0x3154cc, title=user.name, description="Language Preference: **" + profile + "**")
+            embed.set_thumbnail(url=user.avatar_url)
+            await ctx.send(embed=embed)
     elif preference == "na'vi":
         fh = open(fileName, 'w')
         fh.write(preference.capitalize() + "\n")
@@ -308,13 +312,13 @@ async def profile(ctx, *setting):
 @profile.error
 async def profile_error(ctx, error):
     if isinstance(error, commands.CommandError):
-        await ctx.send("Invalid syntax. If you need help with the `!profile` command, type `!howto`")
+        await ctx.send("Invalid syntax. If you need help with the `+profile` command, type `+howto`")
 
 # Quit command
-@nameGenBot.command(name='stop')
+@nameGenBot.command(name='stop',aliases=['ftang'])
 async def botquit(ctx):
     user = ctx.message.author
-    if user.top_role.name == "Eyktan":
+    if user.top_role.name == "Olo'eyktan":
     await ctx.send("Herum. Hayalovay!")
     await nameGenBot.close()
     await nameGen.close()
@@ -322,3 +326,4 @@ async def botquit(ctx):
 
 # Run Bot    
 nameGenBot.run("GET FROM MAKO")
+       
