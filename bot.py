@@ -16,7 +16,7 @@ nameGen = discord.Client()
 # Initialize Bot
 nameGenBot = commands.Bot(command_prefix="+")
 
-versionNumber = "1.2.0"
+versionNumber = "1.1.5"
 modRoleNames = ["Olo'eyktan","Eyktan"]
 
 # Na'vi Alphabet
@@ -220,15 +220,15 @@ async def generate(ctx, numOut, numSyllables):
 
     if not n <= 0 and not i <= 0:
         if langCheck.lower() == "english":
-            if not i <= 20:
-                await ctx.send("Maximum syllable count allowed by the bot is 20. It is highly recommended that you select a name that is between 1 and 3 syllables.")
+            if not i <= 3:
+                await ctx.send("Maximum syllable count allowed by the bot is 3. It is highly recommended that you select a name that is between 1 and 3 syllables.")
             elif not n <= 20:
                 await ctx.send("Maximum name count allowed is 20.")
             else:
                 output = nameGen(n, numSyllables)
                 await ctx.send("Here are your names:" + output)
         elif langCheck.lower() == "na'vi":
-            if not i <= 20:
+            if not i <= 3:
                 await ctx.send("Lì'kongä txantewä holpxay lu mevotsìng. Sweylu txo ngal ftxivey tstxoti a lu tsa'ur lì'kong apxey, lì'kong amune, fu lìkong a'aw.")
             elif not n <= 20:
                 await ctx.send("Stxoä txantxewä holpxay lu mevotsìng.")
@@ -327,4 +327,3 @@ async def botquit(ctx):
 
 # Run Bot    
 nameGenBot.run("PRIVATE KEY")
-       
