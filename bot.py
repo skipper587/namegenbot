@@ -16,7 +16,7 @@ nameGen = discord.Client()
 # Initialize Bot
 nameGenBot = commands.Bot(command_prefix="+")
 
-versionNumber = "1.1.5"
+versionNumber = "1.1.6"
 modRoleNames = ["Olo'eyktan","Eyktan"]
 
 # Na'vi Alphabet
@@ -203,9 +203,9 @@ async def howto(ctx):
     langCheck = outputCheck(ctx.message.author)
     
     if langCheck.lower() == "english":
-        await ctx.send("Syntax for the command is `+generate <number of names> <number of syllables>`. Maximum number of names and syllables is capped at 20.")
+        await ctx.send("Syntax for the command is `+generate <number of names> <number of syllables>`. Maximum number of names is capped at 3 and syllables is capped at 20.")
     elif langCheck.lower() == "na'vi":
-        await ctx.send("Fte sivar `+generate`ti, fìkem si: `+generate <stxoä holpxay> <aylì'kongä holpxay>`. Stxoä lì'kongäsì txantewä holpxay lu mevotsìng.")
+        await ctx.send("Fte sivar `+generate`ti, fìkem si: `+generate <stxoä holpxay> <aylì'kongä holpxay>`. Stxoä txantewä holpxay lu pxey ulte lì'kongä txantewä holpxay lu mevotsìng.")
     else:
         await ctx.send("Somehow, and god knows how, you fucked up.")
 
@@ -229,7 +229,7 @@ async def generate(ctx, numOut, numSyllables):
                 await ctx.send("Here are your names:" + output)
         elif langCheck.lower() == "na'vi":
             if not i <= 3:
-                await ctx.send("Lì'kongä txantewä holpxay lu mevotsìng. Sweylu txo ngal ftxivey tstxoti a lu tsa'ur lì'kong apxey, lì'kong amune, fu lìkong a'aw.")
+                await ctx.send("Lì'kongä txantewä holpxay lu pxey. Sweylu txo ngal ftxivey tstxoti a lu tsa'ur lì'kong apxey, lì'kong amune, fu lìkong a'aw.")
             elif not n <= 20:
                 await ctx.send("Stxoä txantxewä holpxay lu mevotsìng.")
             else:
