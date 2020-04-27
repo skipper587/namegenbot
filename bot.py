@@ -16,7 +16,7 @@ nameGen = discord.Client()
 # Initialize Bot
 nameGenBot = commands.Bot(command_prefix="+")
 
-versionNumber = "1.1.8 (ngafpi ma @143411387429945344)"
+versionNumber = "1.1.8"
 modRoleNames = ["Olo'eyktan","Eyktan"]
 
 # Na'vi Alphabet
