@@ -16,7 +16,7 @@ nameGen = discord.Client()
 # Initialize Bot
 nameGenBot = commands.Bot(command_prefix="+")
 
-versionNumber = "1.1.7"
+versionNumber = "1.1.8 (ngafpi ma @143411387429945344)"
 modRoleNames = ["Olo'eyktan","Eyktan"]
 
 # Na'vi Alphabet
@@ -203,9 +203,9 @@ async def howto(ctx):
     langCheck = outputCheck(ctx.message.author)
     
     if langCheck.lower() == "english":
-        await ctx.send("Syntax for the command is `+generate <number of names> <number of syllables>`. Maximum number of names is capped at 20 and syllables is capped at 4.")
+        await ctx.send("Syntax for the command is `+generate <number of names> <number of syllables>`. Maximum number of names is capped at 20 and syllables is capped at 5.")
     elif langCheck.lower() == "na'vi":
-        await ctx.send("Fte sivar `+generate`ti, fìkem si: `+generate <stxoä holpxay> <aylì'kongä holpxay>`. Stxoä txantewä holpxay lu mevotsìng ulte lì'kongä txantewä holpxay lu tsìng.")
+        await ctx.send("Fte sivar `+generate`ti, fìkem si: `+generate <stxoä holpxay> <aylì'kongä holpxay>`. Stxoä txantewä holpxay lu mevotsìng ulte lì'kongä txantewä holpxay lu mrr.")
     else:
         await ctx.send("Somehow, and god knows how, you fucked up.")
 
@@ -221,7 +221,7 @@ async def generate(ctx, numOut, numSyllables):
     if not n <= 0 and not i <= 0:
         if langCheck.lower() == "english":
             if not i <= 3:
-                await ctx.send("Maximum syllable count allowed by the bot is 4. It is highly recommended that you select a name that is between 1 and 3 syllables.")
+                await ctx.send("Maximum syllable count allowed by the bot is 5. It is highly recommended that you select a name that is between 1 and 3 syllables.")
             elif not n <= 20:
                 await ctx.send("Maximum name count allowed is 20.")
             else:
@@ -229,7 +229,7 @@ async def generate(ctx, numOut, numSyllables):
                 await ctx.send("Here are your names:" + output)
         elif langCheck.lower() == "na'vi":
             if not i <= 3:
-                await ctx.send("Lì'kongä txantewä holpxay lu tsìng. Sweylu txo ngal ftxivey tstxoti a lu tsa'ur lì'kong apxey, lì'kong amune, fu lìkong a'aw.")
+                await ctx.send("Lì'kongä txantewä holpxay lu mrr. Sweylu txo ngal ftxivey tstxoti a lu tsa'ur lì'kong apxey, lì'kong amune, fu lìkong a'aw.")
             elif not n <= 20:
                 await ctx.send("Stxoä txantxewä holpxay lu mevotsìng.")
             else:
