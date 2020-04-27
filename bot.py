@@ -16,14 +16,14 @@ nameGen = discord.Client()
 # Initialize Bot
 nameGenBot = commands.Bot(command_prefix="+")
 
-versionNumber = "1.1.5"
+versionNumber = "1.2.0"
 modRoleNames = ["Olo'eyktan","Eyktan"]
 
 # Na'vi Alphabet
 vowels = ["a","ä","e","i","ì","o","u","aw","ay","ew","ey"]
-vowelProbabilities = [5,5,5,5,5,5,5,2,2,2,2]
+vowelProbabilities = [10,10,10,10,10,10,10,2,2,2,2]
 consonants = ["'","f","h","k","kx","l","m","n","ng","p","px","r","s","t","tx","ts","v","w","y","z"]
-consonantProbabilities = [2,5,5,5,3,5,5,5,4,5,3,4,5,5,3,5,4,3,3,4]
+consonantProbabilities = [1,6,6,6,3,6,6,6,4,6,3,4,6,6,3,6,5,5,5,5]
 pseudovowels = ["ll","rr"]
 diphthongs = ["aw","ay","ew","ey"]
 
@@ -31,7 +31,7 @@ preconsonants = ["f","s","ts"]
 onsets_withpre = ["k","kx","l","m","n","ng","p","px","r","t","tx","w","y"]
 onsetProbabilities = [5,2,5,5,5,4,5,2,4,5,2,3,3]
 codas = ["'","k","kx","l","m","n","ng","p","px","r","t","tx"]
-codaProbabilities = [2,5,3,5,5,5,4,5,3,4,5,3]
+codaProbabilities = [50,8,3,8,8,8,3,8,3,8,8,3]
 
 # Language Rules #
 # A syllable may start with a vowel
@@ -125,7 +125,7 @@ def nameGen(numOut, numSyllables):
         # Conditional Loop for Number of Syllables
         while i>0:
             syllables = [1, 2, 3, 4, 5, 6, 7, 8]
-            p = [30, 10, 10, 25, 15, 9, .5, .5]
+            p = [20, 7.5, 7.5, 30, 30, 4, .5, .5]
             rule = random.choices(syllables, weights = p)
             rule = int(rule[0])
             # rule = random.randint(0,7)
@@ -165,6 +165,7 @@ def nameGen(numOut, numSyllables):
         name = name.replace("pxpx", "px")
         name = name.replace("tt", "t")
         name = name.replace("txtx", "tx")
+        name = name.replace("yy","y")
         name = name.replace("aa", "a")
         name = name.replace("ää", "ä")
         name = name.replace("ee", "e")
@@ -319,11 +320,11 @@ async def profile_error(ctx, error):
 async def botquit(ctx):
     user = ctx.message.author
     if user.top_role.name == "Olo'eyktan":
-    await ctx.send("Herum. Hayalovay!")
-    await nameGenBot.close()
-    await nameGen.close()
-    quit()
+        await ctx.send("Herum. Hayalovay!")
+        await nameGenBot.close()
+        await nameGen.close()
+        quit()
 
 # Run Bot    
-nameGenBot.run("GET FROM MAKO")
+nameGenBot.run("PRIVATE KEY")
        
