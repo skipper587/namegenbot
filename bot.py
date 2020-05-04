@@ -16,7 +16,7 @@ nameGen = discord.Client()
 # Initialize Bot
 nameGenBot = commands.Bot(command_prefix="+")
 
-versionNumber = "1.1.8"
+versionNumber = "1.1.9"
 modRoleNames = ["Olo'eyktan","Eyktan"]
 
 # Na'vi Alphabet
@@ -191,10 +191,35 @@ def nameGen(numOut, numSyllables):
         n -= 1
     return output
 
+def update(newNameCount):
+        fileName = 'users/bot.tsk'
+        if os.path.exists(fileName):
+            fh = open(fileName, 'r')
+            nameCount = int(fh.read())
+            fh.close()
+            
+            nameCount = nameCount + newNameCount
+            
+            fh = open(fileName, 'w')
+            fh.write(str(nameCount))
+            fh.close()
+        else:
+            fh = open(fileName, 'w')
+            fh.write(str(newNameCount))
+            fh.close()
+            nameCount = newNameCount
+
+        return nameCount
+
 @nameGenBot.event
 async def on_ready():
         # This will be called when the bot connects to the server.
+        nameCount = update(0)
+        game = discord.Game("ngamop " + "{:,}".format(nameCount) + " tstxoti.")
+        
+        await nameGenBot.change_presence(status=discord.Status.online, activity=game)
         print("NameGenBot is ready.")
+        print("Generated " + "{:,}".format(nameCount) + " names so far.")
 
 # Help Module
 @nameGenBot.command(name="howto")
@@ -226,6 +251,10 @@ async def generate(ctx, numOut, numSyllables):
                 await ctx.send("Maximum name count allowed is 20.")
             else:
                 output = nameGen(n, numSyllables)
+                nameCount = update(n)
+                game = discord.Game("ngamop " + "{:,}".format(nameCount) + " tstxoti.")
+        
+                await nameGenBot.change_presence(status=discord.Status.online, activity=game)
                 await ctx.send("Here are your names:" + output)
         elif langCheck.lower() == "na'vi":
             if not i <= 5:
@@ -234,6 +263,10 @@ async def generate(ctx, numOut, numSyllables):
                 await ctx.send("Stxoä txantxewä holpxay lu mevotsìng.")
             else:
                 output = nameGen(n, numSyllables)
+                nameCount = update(n)
+                game = discord.Game("ngamop " + "{:,}".format(nameCount) + " tstxoti.")
+        
+                await nameGenBot.change_presence(status=discord.Status.online, activity=game)
                 await ctx.send("Faystxo lu ngaru:" + output)
         else:
             await ctx.send("Somehow, and god knows how, you fucked up.")
@@ -242,7 +275,8 @@ async def generate(ctx, numOut, numSyllables):
             await ctx.send("Please enter a value greater than zero. If you need help with the `+generate` command, type `+howto`")
         elif langCheck.lower() == "na'vi":
             await ctx.send("Rutxe sar holpxayti a to kew lu apxa. Txo kivin srungti ngal, `+howto`ri pamrel si nga.")
-        
+
+    print(ctx.author.name + " generated " + str(n) + " names.")
 
 # Error Handling for !generate
 @generate.error
